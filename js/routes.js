@@ -1,6 +1,7 @@
 const db = require('./db')
 const func = require('./func');
 const child = require('./child');
+const util = require('util')
 let childs = {}
 module.exports = (app) => {
   app.get('/', async (req, res) => {
@@ -27,5 +28,8 @@ module.exports = (app) => {
   app.get('/:proc/skip', async (req, res) => {
     childs[req.params.proc].kill(10);
     res.send('try to skip')
+  });
+  app.get('/process/', async (req, res) => {
+    res.send(util.inspect(childs));
   });
 }
