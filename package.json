@@ -1,0 +1,20 @@
+{
+  "name": "audio",
+  "version": "1.0.0",
+  "description": "audio server",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "node-pre-gyp": "^0.11.0",
+    "pug": "^2.0.3",
+    "sqlite3": "^4.0.4"
+  }
+}
