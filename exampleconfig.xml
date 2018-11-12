@@ -1,0 +1,30 @@
+<ezstream>
+    <url>http://192.168.1.111:8000/jusic/</url>
+    <sourcepassword>qwerty</sourcepassword>
+    <format>MP3</format>
+    <shuffle>1</shuffle>
+    <filename>/home/jolken/frenki/playlist.m3u</filename>
+    <stream_once>0</stream_once><svrinfoname>Streamy Stream Stream</svrinfoname>
+    <svrinfourl>http://www.openserverproject.com</svrinfourl>
+    <svrinfogenre>Cantopop</svrinfogenre>
+    <svrinfodescription>These sections are for YP listing information only</svrinfodescription>
+    <svrinfobitrate>128</svrinfobitrate>
+    <svrinfochannels>2</svrinfochannels>
+    <svrinfosamplerate>44100</svrinfosamplerate>
+    <svrinfopublic>0</svrinfopublic>
+</ezstream>
+<ezstream>
+    <url>${dataObj.url}</url>
+    <sourcepassword>${dataObj.password}</sourcepassword>
+    <format>MP3</format>
+    <shuffle>${dataObj.shuffle}</shuffle>
+    <filename>${dataObj.playlist}</filename>
+    <stream_once>0</stream_once><svrinfoname>${dataObj.streamName}</svrinfoname>
+    <svrinfourl>${dataObj.infoUrl}</svrinfourl>
+    <svrinfogenre>${dataObj.theme}</svrinfogenre>
+    <svrinfodescription>${dataObj.description}</svrinfodescription>
+    <svrinfobitrate>128</svrinfobitrate>
+    <svrinfochannels>2</svrinfochannels>
+    <svrinfosamplerate>44100</svrinfosamplerate>
+    <svrinfopublic>0</svrinfopublic>
+</ezstream>
