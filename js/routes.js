@@ -43,10 +43,13 @@ module.exports = (app) => {
   app.get('/process/', async (req, res) => {
     res.send(util.inspect(childs));
   });
-  app.post('/music/find', async (req, res) => {
+  app.post('/create/playlist', async (req, res) => {
     //find dir -iname "*.mp3" -print > playlist.m3u
     exec(`find ${req.body.dir} -iname "*.mp3" -print > ${req.body.output}`);
     //get output
     res.sendFile(req.body.output)  
+  });
+  app.post('/create/config', async (req, res) => {
+    
   });
 }
