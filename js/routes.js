@@ -2,6 +2,7 @@ const db = require('./db')
 const func = require('./func');
 const child = require('./child');
 const util = require('util')
+var exec = require('child_process').exec;
 let childs = {}
 xmlconf = {
   url: 'http://127.0.0.1:8000/jusic/',
@@ -41,5 +42,11 @@ module.exports = (app) => {
   });
   app.get('/process/', async (req, res) => {
     res.send(util.inspect(childs));
+  });
+  app.post('/music/find', async (req, res) => {
+    //find dir -iname "*.mp3" -print > playlist.m3u
+    exec(`find ${req.body.dir} -iname "*.mp3" -print > ${req.body.output}`);
+    //get output
+    res.sendFile(req.body.output)  
   });
 }

@@ -5,6 +5,7 @@ class Process {
         this.output = []
         this.err = []
         this.arg = arg
+        this.callb = callb
         
         this.proc = spawn(this.command, this.arg);
         this.proc.stdout.on('data', (data) => {
@@ -16,7 +17,6 @@ class Process {
         });
 
         this.proc.on('close', (code) => {
-            //
         });
     }
     kill(signal) {
