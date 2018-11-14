@@ -1,9 +1,10 @@
-const db = require('./db')
+const db = require('./db');
 const func = require('./func');
 const child = require('./child');
-const util = require('util')
+const util = require('util');
+const files = require('./file');
 var exec = require('child_process').exec;
-let childs = {}
+let childs = {};
 xmlconf = {
   url: 'http://127.0.0.1:8000/jusic/',
   password: 'qwerty',
@@ -20,7 +21,7 @@ module.exports = (app) => {
   });
 
   app.get('/db', async (req, res) => {
-    await db.open(APP_ROOT+'/db/base.db')
+    await db.open(APP_ROOT+'/db/base.db');
     let sql = `SELECT * FROM test;`
     let data = await db.all(sql);
     res.send(data)
@@ -52,4 +53,12 @@ module.exports = (app) => {
   app.post('/create/config', async (req, res) => {
     
   });
+  app.post('/read/', async (req, res) => {
+    file = files(req.body.output);
+    res.send(await file.read())
+  });
+  app.post('/write/', async (req, res) => {
+    file = files(req.body.output);
+    res.send(await file.write(await func.render.xml(xmlconf)))
+  })
 }
