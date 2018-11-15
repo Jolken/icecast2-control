@@ -48,17 +48,28 @@ module.exports = (app) => {
     //find dir -iname "*.mp3" -print > playlist.m3u
     exec(`find ${req.body.dir} -iname "*.mp3" -print > ${req.body.output}`);
     //get output
-    res.sendFile(req.body.output)  
+    res.sendFile(req.body.output)
   });
   app.post('/create/config', async (req, res) => {
-    
+    file = files(req.body.path);
+    //url, password, shuffle, playlist, streamName, infoUrl, theme, description
+    data = Object.assign({}, xmlconf);
+    data.url = req.body.url;
+    data.password = req.body.password;
+    data.shuffle = req.body.shuffle;
+    data.playlist = req.body.playlist;
+    data.streamName = req.body.streamName;
+    data.infoUrl = req.body.infoUrl;
+    data.theme = req.body.theme;
+    data.description = req.body.description;
+    file.write(data);
   });
   app.post('/read/', async (req, res) => {
-    file = files(req.body.output);
+    file = files(req.body.path);
     res.send(await file.read())
   });
   app.post('/write/', async (req, res) => {
-    file = files(req.body.output);
+    file = files(req.body.path);
     res.send(await file.write(await func.render.xml(xmlconf)))
-  })
+  });
 }
