@@ -14,6 +14,7 @@ xmlconf = {
   infoUrl: 'none',
   theme: 'metal/mixed',
   description: 'my radio :)',
+  bitrate: 128,
 }
 module.exports = (app) => {
   app.get('/', async (req, res) => {
@@ -27,7 +28,7 @@ module.exports = (app) => {
     res.send(data)
   });
 
-  app.get('/:proc/start', async (req, res) => {
+  app.post('/:proc/start', async (req, res) => {
     config = req.body.config || '/home/jolken/frenki/jusic.xml';
     childs[req.params.proc] = child('ezstream', ['-c', config]);
     res.send('try to start');
@@ -46,9 +47,9 @@ module.exports = (app) => {
   });
   app.post('/create/playlist', async (req, res) => {
     //find dir -iname "*.mp3" -print > playlist.m3u
-    exec(`find ${req.body.dir} -iname "*.mp3" -print > ${req.body.output}`);
-    //get output
-    res.sendFile(req.body.output)
+    exec(`find ${req.body.dir} -iname "*.mp3" -print > ${req.body.path}`);
+    //get path
+    res.sendFile(req.body.path)
   });
   app.post('/create/config', async (req, res) => {
     file = files(req.body.path);
@@ -62,7 +63,8 @@ module.exports = (app) => {
     data.infoUrl = req.body.infoUrl;
     data.theme = req.body.theme;
     data.description = req.body.description;
-    file.write(data);
+    data.bitrate = req.body.bitrate;
+    res.send(await file.write(await func.render.xml(data)));
   });
   app.post('/read/', async (req, res) => {
     file = files(req.body.path);

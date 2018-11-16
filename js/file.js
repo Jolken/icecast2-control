@@ -16,7 +16,7 @@ class File {
         return new Promise((resolve) => {
             fs.writeFile(this.file, data, "utf8", (err) => {
                 if (err) console.log(err);
-                else resolve("Saved");
+                else resolve({ status: "saved", 'data': data});
             });
         })
     }
