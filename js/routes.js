@@ -18,29 +18,29 @@ xmlconf = {
 }
 module.exports = (app) => {
   app.get('/', async (req, res) => {
-    res.render(APP_ROOT + '/public/index', await func.render.index());
+  res.render(APP_ROOT + '/public/index', await func.render.index());
   });
 
   app.get('/db', async (req, res) => {
     await db.open(APP_ROOT+'/db/base.db');
-    let sql = `SELECT * FROM test;`
+    let sql = `SELECT * FROM test;`;
     let data = await db.all(sql);
-    res.send(data)
+    res.send(data);
   });
 
-  app.post('/:proc/start', async (req, res) => {
+  app.post('/proc/:proc/start', async (req, res) => {
     config = req.body.config || '/home/jolken/frenki/jusic.xml';
     childs[req.params.proc] = child('ezstream', ['-c', config]);
     res.send('try to start');
   });
-  app.get('/:proc/kill', async (req,res) => {
+  app.get('/proc/:proc/kill', async (req,res) => {
     childs[req.params.proc].kill(2);
     delete childs[req.params.proc];
-    res.send('try to kill :D')
+      res.send('try to kill :D');
   });
-  app.get('/:proc/skip', async (req, res) => {
+  app.get('/proc/:proc/skip', async (req, res) => {
     childs[req.params.proc].kill(10);
-    res.send('try to skip')
+      res.send('try to skip');
   });
   app.get('/process/', async (req, res) => {
     res.send(util.inspect(childs));
@@ -49,7 +49,7 @@ module.exports = (app) => {
     //find dir -iname "*.mp3" -print > playlist.m3u
     exec(`find ${req.body.dir} -iname "*.mp3" -print > ${req.body.path}`);
     //get path
-    res.sendFile(req.body.path)
+      res.sendFile(req.body.path);
   });
   app.post('/create/config', async (req, res) => {
     file = files(req.body.path);
@@ -68,10 +68,10 @@ module.exports = (app) => {
   });
   app.post('/read/', async (req, res) => {
     file = files(req.body.path);
-    res.send(await file.read())
+    res.send(await file.read());
   });
   app.post('/write/', async (req, res) => {
     file = files(req.body.path);
     res.send(await file.write(await func.render.xml(xmlconf)))
-  });
+    });
 }
